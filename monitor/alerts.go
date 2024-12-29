@@ -44,14 +44,14 @@ func getPreviousMeasurement(ctx context.Context, siteID int) (up bool, err error
 }
 
 func publishOnTransition(ctx context.Context, site *site.Site, isUp bool) error {
-	_, err := getPreviousMeasurement(ctx, site.ID)
+	wasUp, err := getPreviousMeasurement(ctx, site.ID)
 	if err != nil {
 		return err
 	}
-	// if isUp == wasUp {
-	// 	// Nothing to do
-	// 	return nil
-	// }
+	if isUp == wasUp {
+		// Nothing to do
+		return nil
+	}
 	_, err = TransitionTopic.Publish(ctx, &TransitionEvent{
 		Site: site,
 		Up:   isUp,
