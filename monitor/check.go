@@ -72,5 +72,5 @@ var db = sqldb.NewDatabase("monitor", sqldb.DatabaseConfig{
 var _ = cron.NewJob("check-all", cron.JobConfig{
 	Title:    "Check all sites",
 	Endpoint: CheckAll,
-	Every:    5 * cron.Hour,
+	Every:    1 * cron.Hour,
 })
